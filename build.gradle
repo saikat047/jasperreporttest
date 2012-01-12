@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+buildscript {
+	repositories {
+	    maven {
+		url 'http://172.20.200.30/artifactory/libs-release/'
+	    }
+	}
+}
+
+repositories {
+	ivy {
+	    name = 'viaRepo'
+	    artifactPattern 'http://172.20.200.30/repository/[artifact]-[revision].[ext]'
+	}
+	maven {
+	    url 'http://172.20.200.30/artifactory/libs-release/'
+	}
+}
+
+configurations {
+    testCompile.exclude group: 'junit', module: 'junit'
+}
+
+dependencies {
+	compile (group: 'net.sf.jasperreports', name: 'jasperreports', version: '4.5.0')
+	testCompile (group: 'org.mockito', name: 'mockito-core', version: '1.8.5')
+	testCompile 'junit:junit-dep:4.10'
+}
